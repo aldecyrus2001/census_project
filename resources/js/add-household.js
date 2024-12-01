@@ -136,7 +136,6 @@ document.querySelector(".Save_household_data").addEventListener("click", functio
             } else {
                 var myModal = new bootstrap.Modal(document.getElementById('failedMessage').innerHTML = "<b>Error:</b> " + data.message);
                 myModal.show();
-                console.error('Error:', data.message);
             }
         })
         .catch(error => {
