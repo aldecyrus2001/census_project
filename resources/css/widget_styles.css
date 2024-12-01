@@ -1,0 +1,41 @@
+
+.entryarea {
+    position: relative; 
+    height: 40px; 
+    line-height: 40px;
+    width: 100%;
+}
+
+.text-input {
+    position: absolute; 
+    width: 100%; 
+    height: 40px;
+    margin: 10px;
+    outline: none; 
+    font-size: 15px; 
+    padding: 0 30px; 
+    line-height: 40px; 
+    border-radius: 10px; 
+    border: 2px solid #1c2841; 
+    background: transparent; 
+    transition: 0.1s ease; 
+    z-index: 0; 
+}
+
+.label-line {
+    position: absolute; 
+    font-size: 15px; 
+    background-color: #ffffff;
+    padding: 0 10px; 
+    margin: -5px 20px;
+    color: #1c2841;
+    height: 20px;
+    line-height: 30px;
+    z-index: 1;
+}
+
+
+.modal-container {
+    z-index: 9999;
+}
+
