@@ -42,5 +42,6 @@ include("../../database/connection.php");
 </head>
 
 <?php include '../widgets/text-input.php' ?>
+<?php include '../widgets/textarea.php' ?>
 <?php include '../widgets/options.php' ?>
 <?php include '../widgets/modals/modals.php'?>

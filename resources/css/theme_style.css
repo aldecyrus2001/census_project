@@ -5984,7 +5984,7 @@ ul.chat.nice-chat {
   font-size: 14px;
   font-weight: 600;
   line-height: 40px;
-  min-height: 40px;
+  min-height: 60px;
 }
 .card-head:before,
 .card-head:after {

@@ -65,7 +65,7 @@ document.querySelector(".Save_household_data").addEventListener("click", functio
     event.preventDefault();
 
     const householdInfoContainer = document.querySelector(".personal-details-container");
-    const householdInputs = householdInfoContainer.querySelectorAll("input, select");
+    const householdInputs = householdInfoContainer.querySelectorAll("input, select, textarea");
     const householdData = {};
 
     householdInputs.forEach((input) => {
@@ -74,6 +74,16 @@ document.querySelector(".Save_household_data").addEventListener("click", functio
             householdData[idAttr] = input.value;
         }
     });
+
+    const dateInput = document.getElementById('input_dateNow');
+    if (dateInput) {
+        householdData['input_dateNow'] = dateInput.value;
+    }
+
+    const noteInput = document.getElementById('input_note');
+    if (noteInput) {
+        householdData['input_note'] = noteInput.value;
+    }
 
     const memberContainer = document.getElementById("member-container");
     const members = memberContainer.querySelectorAll(".member-form");
@@ -143,8 +153,6 @@ document.querySelector(".Save_household_data").addEventListener("click", functio
         });
 });
 
-
-
 function updateMemberNumbers() {
     const memberContainer = document.getElementById("member-container");
     const members = memberContainer.querySelectorAll(".member-form");
@@ -176,3 +184,24 @@ function updateMemberNumbers() {
         });
     });
 }
+
+function updateDateTime() {
+    const inputDateNow = document.getElementById('input_dateNow');
+    const now = new Date();
+    const formattedDate = now.toLocaleString('en-US', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+    });
+    inputDateNow.value = formattedDate;
+}
+
+// Update the date and time every second
+setInterval(updateDateTime, 1000);
+
+// Initialize immediately
+updateDateTime();

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2024 at 03:10 AM
+-- Generation Time: Dec 02, 2024 at 03:25 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,10 +67,22 @@ INSERT INTO `administrator` (`adminID`, `firstname`, `middlename`, `lastname`, `
 CREATE TABLE `census_survey` (
   `surveyID` int(11) NOT NULL,
   `householdID` int(50) NOT NULL,
-  `survey_date` date NOT NULL,
+  `survey_date` datetime NOT NULL,
   `survey_by` int(50) NOT NULL,
-  `notes` varchar(500) NOT NULL
+  `notes` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `census_survey`
+--
+
+INSERT INTO `census_survey` (`surveyID`, `householdID`, `survey_date`, `survey_by`, `notes`) VALUES
+(1, 1, '0000-00-00 00:00:00', 123450, ''),
+(2, 2, '0000-00-00 00:00:00', 123450, 'dsadwa'),
+(3, 3, '0000-00-00 00:00:00', 123450, ''),
+(4, 4, '0000-00-00 00:00:00', 123450, 'sdanjwn'),
+(5, 5, '0000-00-00 00:00:00', 123450, 'sdanjwn'),
+(6, 6, '0000-00-00 00:00:00', 123450, 'sdanjwn');
 
 -- --------------------------------------------------------
 
@@ -87,6 +99,18 @@ CREATE TABLE `demographics` (
   `secondary_language` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `demographics`
+--
+
+INSERT INTO `demographics` (`demographicsID`, `householdID`, `ethnicity`, `religion`, `primary_language`, `secondary_language`) VALUES
+(1, 1, 'dsadwa', 'dsadwa', 'dsadwa', 'dsadwa'),
+(2, 2, 'dsadwa', 'sdadwa', 'sadwdwa', 'mdkma'),
+(3, 3, 'dsadwa', 'sdadwa', 'sadwdwa', 'mdkma'),
+(4, 4, 'dsad', 'dwa', 'dad', 'dwa'),
+(5, 5, 'dsad', 'dwa', 'dad', 'dwa'),
+(6, 6, 'dsad', 'dwa', 'dad', 'dwa');
+
 -- --------------------------------------------------------
 
 --
@@ -101,6 +125,18 @@ CREATE TABLE `education_data` (
   `school_name` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `education_data`
+--
+
+INSERT INTO `education_data` (`educationID`, `memberID`, `highest_level_completed`, `currently_enrolled`, `school_name`) VALUES
+(1, 1, '', 0, 'dsadwa'),
+(2, 2, '', 0, 'njkdnwak'),
+(3, 3, '', 0, 'njkdnwak'),
+(4, 4, 'Primary', 0, 'njkdw'),
+(5, 5, 'Primary', 0, 'njkdw'),
+(6, 6, 'Primary', 0, 'njkdw');
+
 -- --------------------------------------------------------
 
 --
@@ -114,6 +150,18 @@ CREATE TABLE `emplyment_data` (
   `job_title` varchar(50) NOT NULL,
   `monthly_income` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `emplyment_data`
+--
+
+INSERT INTO `emplyment_data` (`employementID`, `memberID`, `employment_status`, `job_title`, `monthly_income`) VALUES
+(1, 1, 1, 'dsadwa', 12312),
+(2, 2, 1, 'dnjakw', 1238129),
+(3, 3, 1, 'dnjakw', 1238129),
+(4, 4, 1, 'dwanjk', 1232),
+(5, 5, 1, 'dwanjk', 1232),
+(6, 6, 1, 'dwanjk', 1232);
 
 -- --------------------------------------------------------
 
@@ -136,6 +184,18 @@ CREATE TABLE `family_member` (
   `is_head_of_household` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `family_member`
+--
+
+INSERT INTO `family_member` (`memberID`, `householdID`, `first_name`, `last_name`, `middle_name`, `relationship_to_head`, `gender`, `birthdate`, `occupation`, `education_level`, `income`, `is_head_of_household`) VALUES
+(1, 1, 'dsadwa', 'dsadw', 'dsadw', 'Spouse', 'Male', '2024-12-02', 'sadawdw', '', 12312, 1),
+(2, 2, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1),
+(3, 3, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1),
+(4, 4, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1),
+(5, 5, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1),
+(6, 6, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -150,6 +210,18 @@ CREATE TABLE `health_data` (
   `covid_vaccinated` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `health_data`
+--
+
+INSERT INTO `health_data` (`healthID`, `memberID`, `has_disability`, `pre_existing_condition`, `covid_vaccinated`) VALUES
+(1, 1, 1, 'dsadaw', 1),
+(2, 2, 1, 'dnsajk', 1),
+(3, 3, 1, 'dnsajk', 1),
+(4, 4, 1, 'dsad', 1),
+(5, 5, 1, 'dsad', 1),
+(6, 6, 1, 'dsad', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -160,8 +232,25 @@ CREATE TABLE `household` (
   `householdID` int(50) NOT NULL,
   `family_name` varchar(50) NOT NULL,
   `address` varchar(200) NOT NULL,
-  `household_income` int(20) NOT NULL
+  `household_income` int(20) NOT NULL,
+  `household_email` varchar(50) DEFAULT NULL,
+  `household_phone` varchar(20) DEFAULT NULL,
+  `house_type` varchar(50) NOT NULL,
+  `ownership` varchar(50) NOT NULL,
+  `image` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `household`
+--
+
+INSERT INTO `household` (`householdID`, `family_name`, `address`, `household_income`, `household_email`, `household_phone`, `house_type`, `ownership`, `image`) VALUES
+(1, 'dsad', 'dsadaw', 12312, 'dwasdsadwa', '213213', 'Apartment', 'Rented', '674d1701944c2_Untitled.png'),
+(2, 'dsadw', 'uug', 1231, 'gyg@gmail.com', '12312', 'Apartment', 'Owned', '674d18c08f555_Untitled.png'),
+(3, 'dsadw', 'uug', 1231, 'gyg@gmail.com', '12312', 'Apartment', 'Owned', '674d18f1704cc_Untitled.png'),
+(4, 'ndwj', 'dwnajd', 12321, 'dnwja@gmail.com', '12u983', 'Apartment', 'Rented', '674d19f953431_Untitled.png'),
+(5, 'ndwj', 'dwnajd', 12321, 'dnwja@gmail.com', '12u983', 'Apartment', 'Rented', '674d1a61b151b_Untitled.png'),
+(6, 'ndwj', 'dwnajd', 12321, 'dnwja@gmail.com', '12u983', 'Apartment', 'Rented', '674d1a9b190d4_Untitled.png');
 
 -- --------------------------------------------------------
 
@@ -173,9 +262,20 @@ CREATE TABLE `utilities` (
   `utilityID` int(11) NOT NULL,
   `householdID` int(50) NOT NULL,
   `has_electricity` tinyint(1) NOT NULL DEFAULT 0,
-  `has_water` tinyint(1) NOT NULL DEFAULT 0,
-  `internet_access` tinyint(1) NOT NULL DEFAULT 0
+  `has_water` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `utilities`
+--
+
+INSERT INTO `utilities` (`utilityID`, `householdID`, `has_electricity`, `has_water`) VALUES
+(1, 1, 1, 0),
+(2, 2, 1, 1),
+(3, 3, 1, 1),
+(4, 4, 1, 1),
+(5, 5, 1, 1),
+(6, 6, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -249,49 +349,49 @@ ALTER TABLE `administrator`
 -- AUTO_INCREMENT for table `census_survey`
 --
 ALTER TABLE `census_survey`
-  MODIFY `surveyID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `surveyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `demographics`
 --
 ALTER TABLE `demographics`
-  MODIFY `demographicsID` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `demographicsID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `education_data`
 --
 ALTER TABLE `education_data`
-  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `emplyment_data`
 --
 ALTER TABLE `emplyment_data`
-  MODIFY `employementID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `employementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `family_member`
 --
 ALTER TABLE `family_member`
-  MODIFY `memberID` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `memberID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `health_data`
 --
 ALTER TABLE `health_data`
-  MODIFY `healthID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `healthID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `household`
 --
 ALTER TABLE `household`
-  MODIFY `householdID` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `householdID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `utilities`
 --
 ALTER TABLE `utilities`
-  MODIFY `utilityID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `utilityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

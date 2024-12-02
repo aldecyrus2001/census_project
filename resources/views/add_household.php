@@ -38,8 +38,15 @@
                             <div class="card-body">
                                 <form action="" class="add-administrator" onsubmit="handleFormSubmit(event)">
                                     <div class="card-head">
-                                        <header>Household Information</header>
+                                        <div class="header-container d-flex align-items-center justify-content-between">
+                                            <header style="margin-right: 20px; height: 100%;">Household Information</header>
+                                            <?php
+                                            echo dateInput::create('dateNow', 'text', 'Current Date', 'Current Date Time');
+                                            ?>
+                                        </div>
                                     </div>
+
+
 
                                     <div class="row p-5">
                                         <div class="img-container text-center col-md-3 p-2">
@@ -49,12 +56,17 @@
                                             </div>
 
                                             <div class="button-container">
-                                                <input type="file" id="imageUpload" class="d-none" >
+                                                <input type="file" id="imageUpload" class="d-none">
                                                 <button type="button" id="browseButton" class="btn btn-primary btn-sm">Browse</button>
                                                 <button id="resetButton" class="btn btn-secondary btn-sm">Reset</button>
                                             </div>
                                         </div>
                                         <div class="personal-details-container col-md-9 p-4">
+                                            <div class="mb-5">
+                                                <?php
+                                                echo textArea::create('note', 'Note', 'Note');
+                                                ?>
+                                            </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
                                                 <?php
                                                 echo textInput::create('familyName', 'text', 'Family Name', 'Family Name');
@@ -137,8 +149,8 @@
                                                 <?php echo textInput::create('schoolName1', 'text', 'N/A if none', 'School Name'); ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                            <?php echo dropdownMenuYesNo::create('employmentStatus1', 'Employment Status?'); ?>
-                                            <?php echo textInput::create('occupation1', 'text', 'Occupation', 'Occupation'); ?>
+                                                <?php echo dropdownMenuYesNo::create('employmentStatus1', 'Employment Status?'); ?>
+                                                <?php echo textInput::create('occupation1', 'text', 'Occupation', 'Occupation'); ?>
                                                 <?php echo textInput::create('jobTitle1', 'text', 'N/A if none', 'Job Title'); ?>
                                                 <?php echo textInput::create('income1', 'number', 'Income', 'Monthly Income'); ?>
 
