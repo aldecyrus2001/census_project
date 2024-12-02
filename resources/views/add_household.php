@@ -131,28 +131,28 @@
                                                 <span class="material-symbols-outlined bg-danger px-4 py-1 minus-member" style="border-radius: 10px; cursor: pointer;">person_remove</span>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                                <?php echo dropdownMenuYesNo::create('isHead1', 'Head of Family?') ?>
+                                                <?php echo dropdownMenuYesNo::create('isHead', 'Head of Family?') ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                                <?php echo textInput::create('Firstname1', 'text', 'First Name', 'First Name'); ?>
-                                                <?php echo textInput::create('Middlename1', 'text', 'Middle Name', 'Middle Name'); ?>
-                                                <?php echo textInput::create('lastname1', 'text', 'Last Name', 'Last Name'); ?>
+                                                <?php echo textInput::create('Firstname', 'text', 'First Name', 'First Name'); ?>
+                                                <?php echo textInput::create('Middlename', 'text', 'Middle Name', 'Middle Name'); ?>
+                                                <?php echo textInput::create('lastname', 'text', 'Last Name', 'Last Name'); ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                                <?php echo dropdownMenuRelationshipToHead::create('relationship1', 'Relationship to head'); ?>
-                                                <?php echo dropdownMenuGender::create('gender1', 'Gender'); ?>
-                                                <?php echo birthDate::create('birthDate1', 'date', 'Birth Date', 'Birth Date'); ?>
+                                                <?php echo dropdownMenuRelationshipToHead::create('relationship', 'Relationship to head'); ?>
+                                                <?php echo dropdownMenuGender::create('gender', 'Gender'); ?>
+                                                <?php echo birthDate::create('birthDate', 'date', 'Birth Date', 'Birth Date'); ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                                <?php echo dropdownMenuEducationLevel::create('educationLevel1', 'Education Level'); ?>
-                                                <?php echo textInput::create('currentlyEnrolled1', 'text', 'N/A if none', 'Currently Enrolled'); ?>
-                                                <?php echo textInput::create('schoolName1', 'text', 'N/A if none', 'School Name'); ?>
+                                                <?php echo dropdownMenuEducationLevel::create('educationLevel', 'Education Level'); ?>
+                                                <?php echo dropdownMenuYesNo::create('currentlyEnrolled'. 'Currently Enrolled ?'); ?>
+                                                <?php echo textInput::create('schoolName', 'text', 'N/A if none', 'School Name'); ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
-                                                <?php echo dropdownMenuYesNo::create('employmentStatus1', 'Employment Status?'); ?>
-                                                <?php echo textInput::create('occupation1', 'text', 'Occupation', 'Occupation'); ?>
-                                                <?php echo textInput::create('jobTitle1', 'text', 'N/A if none', 'Job Title'); ?>
-                                                <?php echo textInput::create('income1', 'number', 'Income', 'Monthly Income'); ?>
+                                                <?php echo dropdownMenuYesNo::create('employmentStatus', 'Employment Status?'); ?>
+                                                <?php echo textInput::create('occupation', 'text', 'Occupation', 'Occupation'); ?>
+                                                <?php echo textInput::create('jobTitle', 'text', 'N/A if none', 'Job Title'); ?>
+                                                <?php echo textInput::create('income', 'number', 'Income', 'Monthly Income'); ?>
 
 
                                             </div>
@@ -180,7 +180,7 @@
 
     <div class="modal-container" id="modal-container">
 
-        <?php echo successModal::create('Successfully Inserted Data', './all_administrator.php') ?>
+        <?php echo successModal::create('Successfully Inserted Data', './all_household.php') ?>
         <?php echo failedModal::create() ?>
     </div>
 

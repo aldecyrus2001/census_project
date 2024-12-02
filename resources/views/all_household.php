@@ -18,13 +18,13 @@
 				<div class="page-bar">
 					<div class="page-title-breadcrumb">
 						<div class=" pull-left">
-							<div class="page-title">All Residents Lists</div>
+							<div class="page-title">All Household Lists</div>
 						</div>
 						<ol class="breadcrumb page-breadcrumb pull-right">
 							<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="./dashboard.php">Dashboard</a>&nbsp;<i class="fa fa-angle-right"></i>
 							</li>
-							<li class="active">All Resident</li>
+							<li class="active">All Household</li>
 						</ol>
 					</div>
 				</div>
@@ -32,7 +32,7 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="card  card-box">
 							<div class="card-head">
-								<header>Resident's List |</header>
+								<header>Household's List |</header>
                                 <a href="./add_household.php" class="btn btn-success p-1">Add Household</a>
 							</div>
 							<div class="card-body ">
@@ -42,7 +42,7 @@
 											<thead>
 												<tr>
 													<th>Household ID</th>
-													<th>Head of Family</th>
+													<th>Family Head Name</th>
 													<th>Male</th>
 													<th>Female</th>
                                                     <th>Total Members</th>
@@ -51,48 +51,42 @@
 											</thead>
 											<tbody>
 												<?php
-												// $query = "SELECT *, CASE WHEN token IS NOT NULL AND token != '' THEN 'online' ELSE 'offline' END AS online_status FROM administrator";
-												// $result = $conn->query($query);
+												$query = "SELECT h.*, SUM(CASE WHEN fm.gender = 'Male' THEN 1 ELSE 0 END) AS male_count, SUM(CASE WHEN fm.gender = 'Female' THEN 1 ELSE 0 END) AS female_count, CONCAT( MAX(CASE WHEN fm.is_head_of_household = 1 THEN fm.first_name ELSE NULL END), ' ', MAX(CASE WHEN fm.is_head_of_household = 1 THEN fm.last_name ELSE NULL END) ) AS head_of_family, COUNT(fm.memberID) AS total_members FROM household h LEFT JOIN family_member fm ON h.householdID = fm.householdID GROUP BY h.householdID";
+												$result = $conn->query($query);
 
-												// if ($result->num_rows > 0) {
-												// 	// Fetch each row and display it
-												// 	while ($row = $result->fetch_assoc()) {
-												// 		$adminID = $row['adminID'];
-												// 		$name = $row['firstname'] . ' ' . strtoupper(substr($row['middlename'], 0, 1)) . '.' . ' ' . $row['lastname'];
-												// 		$email = $row['email'];
-												// 		$createdAt = $row['created_at'];
-												// 		$status = $row['online_status'];
+												if ($result->num_rows > 0) {
+													// Fetch each row and display it
+													while ($row = $result->fetch_assoc()) {
+														$householdID = $row['householdID'];
+														$family_name = $row['head_of_family'];
+														$maleCount = $row['male_count'];
+														$femaleCount = $row['female_count'];
+														$totalCount = $row['total_members'];
 
-												// 		echo "<tr>
-												// 				<td>$adminID</td>
-												// 				<td>$name</td>
-												// 				<td>$email</td>
-												// 				<td>$createdAt</td>
-												// 				<td>";
-												// 		if ($status == 'online') {
-												// 			echo "<span class='label label-sm label-success'>$status</span>";
-												// 		} else {
-												// 			echo "<span class='label label-sm label-danger'>$status</span>";
-												// 		}
-												// 		echo "
-												// 				<td style='display: flex'; align-items: center;>
-												// 					<div class='tblViewBtn' onclick='viewAdmin($adminID)'>
-												// 						<i class='fa fa-eye'></i>
-												// 					</div>
-                                                //                     <div class='tblEditBtn' onclick='viewAdmin($adminID)>
-                                                //                         <i class='fa fa-pencil'></i>
-                                                //                     </div>
-                                                //                     <div class='tblDelBtn'>
-                                                //                         <i class='fa fa-trash-o'></i>
-                                                //                     </div>
+														echo "<tr>
+																<td>$householdID</td>
+																<td>$family_name</td>
+																<td>$maleCount</td>
+																<td>$femaleCount</td>
+																<td>$totalCount</td>
+																<td style='display: flex'; align-items: center;>
+																	<div class='tblViewBtn' onclick='viewHousehold($householdID)'>
+																		<i class='fa fa-eye'></i>
+																	</div>
+                                                                    <div class='tblEditBtn' onclick='editHousehold($householdID)>
+                                                                        <i class='fa fa-pencil'></i>
+                                                                    </div>
+                                                                    <div class='tblDelBtn'>
+                                                                        <i class='fa fa-trash-o'></i>
+                                                                    </div>
 																	
-												// 				</td>
-												// 				";
-												// 		"</tr>";
-												// 	}
-												// } else {
-												// 	echo "<tr><td colspan='6'>No records found</td></tr>";
-												// }
+																</td>
+																";
+														"</tr>";
+													}
+												} else {
+													echo "<tr><td colspan='6'>No records found</td></tr>";
+												}
 												?>
 
 												

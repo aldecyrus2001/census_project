@@ -1,0 +1,11 @@
+.modal-body {
+    max-height: 500px; /* Set a fixed height for the modal body */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    scrollbar-width: none; /* Hide scrollbar in modern browsers */
+}
+
+/* For WebKit browsers (e.g., Chrome, Safari) */
+.modal-body::-webkit-scrollbar {
+    width: 0; /* Hide the scrollbar */
+    background: transparent; /* Make it visually invisible */
+}

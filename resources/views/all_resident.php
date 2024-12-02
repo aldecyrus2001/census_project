@@ -1,6 +1,6 @@
 <?php include '../include/header.php' ?>
 
-
+<link rel="stylesheet" href="../css/resident.css">
 
 
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo"></body>
@@ -42,60 +42,53 @@
 												<tr>
 													<th>Resident ID</th>
 													<th>Name</th>
-													<th>Email</th>
 													<th>Date Of Birth</th>
-                                                    <th>Gender</th>
-                                                    <th>Status</th>
+													<th>Gender</th>
+													<th>Income</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php
-												// $query = "SELECT *, CASE WHEN token IS NOT NULL AND token != '' THEN 'online' ELSE 'offline' END AS online_status FROM administrator";
-												// $result = $conn->query($query);
+												$query = "SELECT fm.*, ed.*, emp.*, hd.* FROM family_member fm LEFT JOIN education_data ed ON fm.memberID = ed.memberID LEFT JOIN emplyment_data emp ON fm.memberID = emp.memberID LEFT JOIN health_data hd ON fm.memberID = hd.memberID";
+												$result = $conn->query($query);
 
-												// if ($result->num_rows > 0) {
-												// 	// Fetch each row and display it
-												// 	while ($row = $result->fetch_assoc()) {
-												// 		$adminID = $row['adminID'];
-												// 		$name = $row['firstname'] . ' ' . strtoupper(substr($row['middlename'], 0, 1)) . '.' . ' ' . $row['lastname'];
-												// 		$email = $row['email'];
-												// 		$createdAt = $row['created_at'];
-												// 		$status = $row['online_status'];
+												if ($result->num_rows > 0) {
+													// Fetch each row and display it
+													while ($row = $result->fetch_assoc()) {
+														$memberID = $row['memberID'];
+														$name = $row['first_name'] . ' ' . strtoupper(substr($row['middle_name'], 0, 1)) . '.' . ' ' . $row['last_name'];
+														$birthdate = $row['birthdate'];
+														$gender = $row['gender'];
+														$income = $row['income'];
 
-												// 		echo "<tr>
-												// 				<td>$adminID</td>
-												// 				<td>$name</td>
-												// 				<td>$email</td>
-												// 				<td>$createdAt</td>
-												// 				<td>";
-												// 		if ($status == 'online') {
-												// 			echo "<span class='label label-sm label-success'>$status</span>";
-												// 		} else {
-												// 			echo "<span class='label label-sm label-danger'>$status</span>";
-												// 		}
-												// 		echo "
-												// 				<td style='display: flex'; align-items: center;>
-												// 					<div class='tblViewBtn' onclick='viewAdmin($adminID)'>
-												// 						<i class='fa fa-eye'></i>
-												// 					</div>
-                                                //                     <div class='tblEditBtn' onclick='viewAdmin($adminID)>
-                                                //                         <i class='fa fa-pencil'></i>
-                                                //                     </div>
-                                                //                     <div class='tblDelBtn'>
-                                                //                         <i class='fa fa-trash-o'></i>
-                                                //                     </div>
+														echo "<tr>
+																<td>$memberID</td>
+																<td>$name</td>
+																<td>$birthdate</td>
+																<td>$gender</td>
+																<td>$income</td>
+																<td style='display: flex'; align-items: center;>
+																	<div class='tblViewBtn' onclick='viewResident($memberID)'>
+																		<i class='fa fa-eye'></i>
+																	</div>
+                                                                    <div class='tblEditBtn' onclick='editResident($memberID)>
+                                                                        <i class='fa fa-pencil'></i>
+                                                                    </div>
+                                                                    <div class='tblDelBtn'>
+                                                                        <i class='fa fa-trash-o'></i>
+                                                                    </div>
 																	
-												// 				</td>
-												// 				";
-												// 		"</tr>";
-												// 	}
-												// } else {
-												// 	echo "<tr><td colspan='6'>No records found</td></tr>";
-												// }
+																</td>
+																";
+														"</tr>";
+													}
+												} else {
+													echo "<tr><td colspan='6'>No records found</td></tr>";
+												}
 												?>
 
-												
+
 											</tbody>
 										</table>
 									</div>
@@ -107,24 +100,83 @@
 			</div>
 
 			<div class="modal-container">
-				<div class="modal fade" id="specificResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true">
-					<div class="modal-dialog modal-dialog-centered">
+				<div class="modal fade" id="viewResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true">
+					<div class="modal-dialog modal-dialog-centered" style="margin: auto; max-width: 70% !important;">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">View Person Details</h5>
+								<h5 class="modal-title" id="exampleModalLabel">View Resident Details</h5>
 							</div>
 							<div class="modal-body">
-								<div class="profile-container d-flex justify-content-center">
-									<div class="preview-container mb-3">
-										<img id="imagePreview" src="../assets/img/doc/doc1.jpg" alt="Image Preview" class="img-thumbnail" style="height: 200px;">
+								<div class="resident_name">
+									<h2 class="fw-bolder my-1 ms-3">Sample Resident Name</h2>
+								</div>
+								<hr>
+								<div class="container">
+									<div class="row d-flex align-items-stretch">
+										<div class="col-md-6">
+											<div class="members-information p-3 border border-secondary border-1 rounded-3 h-100">
+												<div class="grid-title mb-2">
+													<span>Member Information</span>
+												</div>
+												<?php
+												echo viewArea::create('firstname', 'First Name :');
+												echo viewArea::create('middlename', 'Middle Name :');
+												echo viewArea::create('lastname', 'Last Name :');
+												echo viewArea::create('gender', 'Gender :');
+												echo viewArea::create('birthDate', 'Birthdate :');
+												echo viewArea::create('occupation', 'Occupation :');
+												echo viewArea::create('relationship_to_head', 'Relationship to Head :');
+												?>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="row">
+												<div class="mb-3">
+													<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
+														<div class="grid-title mb-2">
+															<span>Education Information</span>
+														</div>
+														<?php
+														echo viewArea::create('highest_education_level', 'Highest Education Level :');
+														echo viewArea::create('currently_enrolled', 'Currently Enrolled ?');
+														echo viewArea::create('school_name', 'School Name :');
+														?>
+													</div>
+												</div>
+												<div>
+													<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
+														<div class="grid-title mb-2">
+															<span>Employment Information</span>
+														</div>
+														<?php
+														echo viewArea::create('employment_status', 'Is Employed ?');
+														echo viewArea::create('job_title', 'Job Title :');
+														echo viewArea::create('monthly_income', 'Monthly Income :');
+														?>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="">
+											<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
+												<div class="grid-title mb-2">
+													<span>Health Information</span>
+												</div>
+												<div class="d-flex justify-content-around text-center">
+													<?php
+													echo viewArea::create('has_disability', 'Has Disabilities ?');
+													echo viewArea::create('pre_exisiting_condition', 'Pre Existing Condition :');
+													echo viewArea::create('covid_vaccinated', 'Is Vaccinated ?');
+													?>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="name-container text-center">
-									<p class="m-0 adminFullname">Sample</p>
-									<p class="m-0 adminPosition">Position</p>
-									<p class=" adminEmail">sample@gmail.com</p>
-								</div>
 							</div>
+
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 							</div>
@@ -138,5 +190,9 @@
 	</div>
 
 </div>
+
+
+
+<script src="../js/resident.js"></script>
 
 <?php include '../include/global_scripts.php'; ?>
