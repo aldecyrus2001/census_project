@@ -7,7 +7,7 @@ class viewArea {
         return "
         <div class='viewarea mb-2'>
 			<label class='' style='font-size: 14px;'>{$label}</label>
-		    <p class='my-0 {$uniqueId} fw-bolder'> sample </p>
+		    <p class='my-0 {$uniqueId} fw-bolder'>  </p>
 		</div>
         ";
     }

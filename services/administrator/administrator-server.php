@@ -191,7 +191,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'add_administrator') {
                         "preExistingCondition" => $hasPreExistingCondition,
                         "isVaccinated" => $isVaccinated
                     ];
-                    
                 } else {
                     throw new Exception("Error inserting Education, Employment Data & Health data: " . $conn->error);
                 }
@@ -216,6 +215,125 @@ if (isset($_GET['action']) && $_GET['action'] === 'add_administrator') {
                 "members" => $insertedMembersData
             ]);
         }
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback the transaction if any error occurs
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+    }
+} else if (isset($_GET['action']) && $_GET['action'] === 'view_resident') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $resident_ID = $_POST['resident_ID'];
+
+        $sql = "SELECT family_member.*, emplyment_data.*, education_data.*, health_data.* FROM `family_member` JOIN emplyment_data ON family_member.memberID = emplyment_data.memberID JOIN education_data ON family_member.memberID = education_data.memberID JOIN health_data ON family_member.memberID = health_data.memberID WHERE family_member.memberID = '$resident_ID'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $data = $result->fetch_assoc();
+
+            echo json_encode(['status' => 'success', 'data' => $data]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Administrator not found']);
+        }
+    }
+} else if (isset($_GET['action']) && $_GET['action'] === 'update_resident') {
+
+    try {
+        error_log(print_r($_POST, true));
+
+        $conn->begin_transaction();
+
+        $memberData = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, '') !== false) {
+                $memberData[$key] = $value;
+            }
+        }
+
+        if (!$memberData) {
+            throw new Exception("Invalid member data.");
+        }
+
+
+        $sqlMemberDetails = "UPDATE `family_member` SET `first_name`='" . $memberData['input_edit_firstname'] . "',`last_name`='" . $memberData['input_edit_lastname'] . "',`middle_name`='" . $memberData['input_edit_middlename'] . "',`relationship_to_head`='" . $memberData['input_edit_relationship'] . "',`gender`='" . $memberData['input_edit_gender'] . "',`birthdate`='" . $memberData['input_edit_birthDate'] . "',`education_level`='" . $memberData['input_edit_educationLevel'] . "',`income`='" . $memberData['input_edit_income'] . "' WHERE `memberID` = '" . $memberData['member_ID'] . "'";
+
+        $sqlEmployment = "UPDATE `emplyment_data` SET `employment_status`='" . $memberData['input_edit_employmentStatus'] . "',`job_title`='" . $memberData['input_edit_jobTitle'] . "',`monthly_income`='" . $memberData['input_edit_income'] . "' WHERE `memberID` = '" . $memberData['member_ID'] . "'";
+
+        $sqlEducation = "UPDATE `education_data` SET `highest_level_completed`='" . $memberData['input_edit_educationLevel'] . "',`currently_enrolled`='" . $memberData['input_edit_currentlyEnrolled'] . "',`school_name`='" . $memberData['input_edit_schoolName'] . "' WHERE `memberID` = '" . $memberData['member_ID'] . "'";
+
+        $sqlHealth = "UPDATE `health_data` SET `has_disability`='" . $memberData['input_edit_hasDisabilities'] . "',`pre_existing_condition`='" . $memberData['input_edit_preExistingCondition'] . "',`covid_vaccinated`='" . $memberData['input_edit_covidVaccinated'] . "' WHERE `memberID` = '" . $memberData['member_ID'] . "'";
+
+        $conn->begin_transaction();
+
+        try {
+            // Execute your SQL queries
+            $conn->query($sqlMemberDetails);
+            $conn->query($sqlEmployment);
+            $conn->query($sqlEducation);
+            $conn->query($sqlHealth);
+
+            $conn->commit();
+
+            echo json_encode([
+                "status" => "success",
+                "message" => "Members updated successfully"
+            ]);
+        } catch (Exception $e) {
+
+            $conn->rollback();
+
+            echo json_encode([
+                "status" => "error",
+                "message" => "Failed to update members. Transaction rolled back.",
+                "error" => $e->getMessage()
+            ]);
+        }
+
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback the transaction if any error occurs
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+    }
+}else if (isset($_GET['action']) && $_GET['action'] === 'delete_resident') {
+
+    try {
+        error_log(print_r($_POST, true));
+
+        $conn->begin_transaction();
+
+        $Data = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, '') !== false) {
+                $Data[$key] = $value;
+            }
+        }
+
+        if (!$Data) {
+            throw new Exception("Invalid member data.");
+        }
+
+
+        $sqlMemberDetails = "UPDATE `family_member` SET `isDeleted`='1' WHERE `memberID` = '" . $Data['resident_ID'] . "'";
+
+        $conn->begin_transaction();
+
+        try {
+            // Execute your SQL queries
+            $conn->query($sqlMemberDetails);
+            $conn->commit();
+
+            echo json_encode([
+                "status" => "success",
+                "message" => "Members Deleted successfully"
+            ]);
+        } catch (Exception $e) {
+
+            $conn->rollback();
+
+            echo json_encode([
+                "status" => "error",
+                "message" => "Failed to update members. Transaction rolled back.",
+                "error" => $e->getMessage()
+            ]);
+        }
+
     } catch (Exception $e) {
         $conn->rollback(); // Rollback the transaction if any error occurs
         echo json_encode(["status" => "error", "message" => $e->getMessage()]);

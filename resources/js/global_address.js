@@ -9,3 +9,6 @@ const administrator_service = `${host_address}administrator/administrator-server
 const add_administrator = `${administrator_service}add_administrator`;
 const View_administrator = `${administrator_service}view_administrator`;
 const add_household = `${administrator_service}add_household`;
+const view_resident = `${administrator_service}view_resident`;
+const update_resident = `${administrator_service}update_resident`;
+const delete_resident = `${administrator_service}delete_resident`;

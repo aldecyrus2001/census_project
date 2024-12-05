@@ -45,12 +45,12 @@
 													<th>Date Of Birth</th>
 													<th>Gender</th>
 													<th>Income</th>
-													<th>Action</th>
+													<th class='center'>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php
-												$query = "SELECT fm.*, ed.*, emp.*, hd.* FROM family_member fm LEFT JOIN education_data ed ON fm.memberID = ed.memberID LEFT JOIN emplyment_data emp ON fm.memberID = emp.memberID LEFT JOIN health_data hd ON fm.memberID = hd.memberID";
+												$query = "SELECT fm.*, ed.*, emp.*, hd.* FROM family_member fm LEFT JOIN education_data ed ON fm.memberID = ed.memberID LEFT JOIN emplyment_data emp ON fm.memberID = emp.memberID LEFT JOIN health_data hd ON fm.memberID = hd.memberID WHERE fm.isDeleted = 0";
 												$result = $conn->query($query);
 
 												if ($result->num_rows > 0) {
@@ -67,18 +67,30 @@
 																<td>$name</td>
 																<td>$birthdate</td>
 																<td>$gender</td>
-																<td>$income</td>
-																<td style='display: flex'; align-items: center;>
-																	<div class='tblViewBtn' onclick='viewResident($memberID)'>
-																		<i class='fa fa-eye'></i>
+																<td>₱ $income</td>
+																<td class='center'>
+																	<div class='btn-group'>
+																		<button
+																			class='btn btn-xs btn-circle btn-success dropdown-toggle no-margin'
+																			type='button' data-bs-toggle='dropdown'
+																			aria-expanded='false'> Actions
+																			<i class='fa fa-angle-down'></i>
+																		</button>
+																		<ul class='dropdown-menu' role='menu' style='min-width: auto;'>
+																			<li data-bs-toggle='modal' data-bs-target='#viewResident' onclick='viewResident($memberID)'>
+																				<a href='#'><i class='fa fa-eye'></i>
+																					View </a>
+																			</li>
+																			<li data-bs-toggle='modal' data-bs-target='#editResident' onclick='editResident($memberID)'>
+																				<a href='#'><i class='fa fa-edit'></i>
+																					Update </a>
+																			</li>
+																			<li data-bs-toggle='modal' data-bs-target='#confirmationModal' onclick='deleteResident($memberID)'>
+																				<a href='#'><i class='fa fa-trash-o'></i>
+																					Delete </a>
+																			</li>
+																		</ul>
 																	</div>
-                                                                    <div class='tblEditBtn' onclick='editResident($memberID)>
-                                                                        <i class='fa fa-pencil'></i>
-                                                                    </div>
-                                                                    <div class='tblDelBtn'>
-                                                                        <i class='fa fa-trash-o'></i>
-                                                                    </div>
-																	
 																</td>
 																";
 														"</tr>";
@@ -99,95 +111,19 @@
 				</div>
 			</div>
 
-			<div class="modal-container">
-				<div class="modal fade" id="viewResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true">
-					<div class="modal-dialog modal-dialog-centered" style="margin: auto; max-width: 70% !important;">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">View Resident Details</h5>
-							</div>
-							<div class="modal-body">
-								<div class="resident_name">
-									<h2 class="fw-bolder my-1 ms-3">Sample Resident Name</h2>
-								</div>
-								<hr>
-								<div class="container">
-									<div class="row d-flex align-items-stretch">
-										<div class="col-md-6">
-											<div class="members-information p-3 border border-secondary border-1 rounded-3 h-100">
-												<div class="grid-title mb-2">
-													<span>Member Information</span>
-												</div>
-												<?php
-												echo viewArea::create('firstname', 'First Name :');
-												echo viewArea::create('middlename', 'Middle Name :');
-												echo viewArea::create('lastname', 'Last Name :');
-												echo viewArea::create('gender', 'Gender :');
-												echo viewArea::create('birthDate', 'Birthdate :');
-												echo viewArea::create('occupation', 'Occupation :');
-												echo viewArea::create('relationship_to_head', 'Relationship to Head :');
-												?>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="row">
-												<div class="mb-3">
-													<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
-														<div class="grid-title mb-2">
-															<span>Education Information</span>
-														</div>
-														<?php
-														echo viewArea::create('highest_education_level', 'Highest Education Level :');
-														echo viewArea::create('currently_enrolled', 'Currently Enrolled ?');
-														echo viewArea::create('school_name', 'School Name :');
-														?>
-													</div>
-												</div>
-												<div>
-													<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
-														<div class="grid-title mb-2">
-															<span>Employment Information</span>
-														</div>
-														<?php
-														echo viewArea::create('employment_status', 'Is Employed ?');
-														echo viewArea::create('job_title', 'Job Title :');
-														echo viewArea::create('monthly_income', 'Monthly Income :');
-														?>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row mt-3">
-										<div class="">
-											<div class="education-information p-3 border border-secondary border-1 rounded-3 h-100">
-												<div class="grid-title mb-2">
-													<span>Health Information</span>
-												</div>
-												<div class="d-flex justify-content-around text-center">
-													<?php
-													echo viewArea::create('has_disability', 'Has Disabilities ?');
-													echo viewArea::create('pre_exisiting_condition', 'Pre Existing Condition :');
-													echo viewArea::create('covid_vaccinated', 'Is Vaccinated ?');
-													?>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
 		</div>
 
 	</div>
+	<div class="modal-container" id="modal-container">
+
+        <?php 
+		echo viewResidentModal::create();
+		echo EditResidentModal::create();
+		echo successModal::create("Execution Completed!", './all_resident.php');
+		echo failedModal::create('Failed to execute the data adjustment, Please try again!', './all_resident.php');
+		echo confirmationModal::create('Are you Sure you want to delete this resident ?', './all_household.php') ;
+		?>
+    </div>
 
 </div>
 

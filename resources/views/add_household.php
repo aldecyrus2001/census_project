@@ -145,7 +145,7 @@
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
                                                 <?php echo dropdownMenuEducationLevel::create('educationLevel', 'Education Level'); ?>
-                                                <?php echo dropdownMenuYesNo::create('currentlyEnrolled'. 'Currently Enrolled ?'); ?>
+                                                <?php echo dropdownMenuYesNo::create('currentlyEnrolled', 'Currently Enrolled ?'); ?>
                                                 <?php echo textInput::create('schoolName', 'text', 'N/A if none', 'School Name'); ?>
                                             </div>
                                             <div class="d-flex flex-row gap-3 mb-5">
