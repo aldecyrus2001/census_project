@@ -43,17 +43,17 @@
 										</button>
 										<ul class="dropdown-menu dropdown-menu-end">
 											<li>
-												<a href="javascript:;">
+												<a href="javascript:;" data-bs-toggle='modal' data-bs-target='#warningModal'>
 													<i class="fa fa-print"></i> Print
 												</a>
 											</li>
 											<li>
-												<a href="javascript:;">
+												<a href="javascript:;" data-bs-toggle='modal' data-bs-target='#warningModal'>
 													<i class="fa fa-file-pdf-o"></i> Save as PDF
 												</a>
 											</li>
 											<li>
-												<a href="javascript:;">
+												<a href="javascript:;" data-bs-toggle='modal' data-bs-target='#warningModal'>
 													<i class="fa fa-file-excel-o"></i> Export to Excel
 												</a>
 											</li>
@@ -108,15 +108,15 @@
 																		</button>
 																		<ul class='dropdown-menu' role='menu' style='min-width: auto;'>
 																			<li data-bs-toggle='modal' data-bs-target='#viewResident' onclick='viewResident($memberID)'>
-																				<a href='#'><i class='fa fa-eye'></i>
+																				<a href='javascript:;'><i class='fa fa-eye'></i>
 																					View </a>
 																			</li>
 																			<li data-bs-toggle='modal' data-bs-target='#editResident' onclick='editResident($memberID)'>
-																				<a href='#'><i class='fa fa-edit'></i>
+																				<a href='javascript:;'><i class='fa fa-edit'></i>
 																					Update </a>
 																			</li>
 																			<li data-bs-toggle='modal' data-bs-target='#confirmationModal' onclick='deleteResident($memberID)'>
-																				<a href='#'><i class='fa fa-trash-o'></i>
+																				<a href='javascript:;'><i class='fa fa-trash-o'></i>
 																					Delete </a>
 																			</li>
 																		</ul>
@@ -140,18 +140,18 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 	</div>
 	<div class="modal-container" id="modal-container">
-
 		<?php
 		echo viewResidentModal::create();
 		echo EditResidentModal::create();
 		echo successModal::create("Execution Completed!", './all_resident.php');
 		echo failedModal::create('Failed to execute the data adjustment, Please try again!', './all_resident.php');
-		echo confirmationModal::create('Are you Sure you want to delete this resident ?', './all_household.php');
+		echo confirmationModal::create('Are you Sure you want to delete this resident ?', './all_resident.php');
+        echo warningModal::create('No Function Yet!', './all_resident.php');
+		
 		?>
 	</div>
 
