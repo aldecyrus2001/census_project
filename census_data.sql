@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2024 at 03:25 AM
+-- Generation Time: Dec 06, 2024 at 12:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -181,20 +181,22 @@ CREATE TABLE `family_member` (
   `occupation` varchar(50) DEFAULT NULL,
   `education_level` enum('None','Primary','Secondary','Tertiary','Postgraduate') NOT NULL,
   `income` int(50) DEFAULT NULL,
-  `is_head_of_household` tinyint(1) NOT NULL DEFAULT 0
+  `is_head_of_household` tinyint(1) NOT NULL DEFAULT 0,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0,
+  `date_Inserted` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `family_member`
 --
 
-INSERT INTO `family_member` (`memberID`, `householdID`, `first_name`, `last_name`, `middle_name`, `relationship_to_head`, `gender`, `birthdate`, `occupation`, `education_level`, `income`, `is_head_of_household`) VALUES
-(1, 1, 'dsadwa', 'dsadw', 'dsadw', 'Spouse', 'Male', '2024-12-02', 'sadawdw', '', 12312, 1),
-(2, 2, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1),
-(3, 3, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1),
-(4, 4, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1),
-(5, 5, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1),
-(6, 6, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1);
+INSERT INTO `family_member` (`memberID`, `householdID`, `first_name`, `last_name`, `middle_name`, `relationship_to_head`, `gender`, `birthdate`, `occupation`, `education_level`, `income`, `is_head_of_household`, `isDeleted`, `date_Inserted`) VALUES
+(1, 1, 'dsadwa', 'dsadw', 'dsadw', 'Spouse', 'Male', '2024-12-02', 'sadawdw', '', 12312, 1, 0, '2024-12-05 20:13:04'),
+(2, 2, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1, 0, '2024-12-05 20:12:51'),
+(3, 3, 'dsajb', 'hbjh', 'jbj', 'Spouse', 'Male', '2024-12-02', '.,mdkjsan', '', 1238129, 1, 0, '0000-00-00 00:00:00'),
+(4, 4, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1, 0, '0000-00-00 00:00:00'),
+(5, 5, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1, 1, '0000-00-00 00:00:00'),
+(6, 6, 'dmakndwkj', 'kjnnj', 'ndjn', 'Spouse', 'Male', '2024-12-02', 'ndjawk', 'Primary', 1232, 1, 1, '2024-12-04 20:12:40');
 
 -- --------------------------------------------------------
 

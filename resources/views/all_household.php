@@ -46,7 +46,7 @@
 													<th>Male</th>
 													<th>Female</th>
                                                     <th>Total Members</th>
-													<th>Action</th>
+													<th class='center'>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -69,17 +69,26 @@
 																<td>$maleCount</td>
 																<td>$femaleCount</td>
 																<td>$totalCount</td>
-																<td style='display: flex'; align-items: center;>
-																	<div class='tblViewBtn' onclick='viewHousehold($householdID)'>
-																		<i class='fa fa-eye'></i>
+																<td class='center'>
+																	<div class='btn-group'>
+																		<button
+																			class='btn btn-xs btn-circle btn-success dropdown-toggle no-margin'
+																			type='button' data-bs-toggle='dropdown'
+																			aria-expanded='false'> Actions
+																			<i class='fa fa-angle-down'></i>
+																		</button>
+																		<ul class='dropdown-menu' role='menu' style='min-width: auto;'>
+																			<li data-bs-toggle='modal' data-bs-target='#viewResident' onclick='viewResident($householdID)'>
+																				<a href='#'><i class='fa fa-eye'></i>
+																					View </a>
+																			</li>
+																			<li data-bs-toggle='modal' data-bs-target='#editResident' onclick='editResident($householdID)'>
+																				<a href='#'><i class='fa fa-edit'></i>
+																					Update </a>
+																			</li>
+																			
+																		</ul>
 																	</div>
-                                                                    <div class='tblEditBtn' onclick='editHousehold($householdID)>
-                                                                        <i class='fa fa-pencil'></i>
-                                                                    </div>
-                                                                    <div class='tblDelBtn'>
-                                                                        <i class='fa fa-trash-o'></i>
-                                                                    </div>
-																	
 																</td>
 																";
 														"</tr>";

@@ -130,6 +130,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'add_administrator') {
         $familyMembersInserted = true;
         $insertedMembersData = [];
         $memberNumber = $_POST['memberCount'];
+        $currentDateTime = date('Y-m-d H:i:s');
 
         while ($memberNumber != 0) {
             // Extract member data
@@ -152,8 +153,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'add_administrator') {
             $isVaccinated = $_POST['member' . $memberIndex . '_input_input_covidVaccinated' . ($memberIndex + 1)];
 
 
-            $sqlFamilyMember = "INSERT INTO `family_member`(`memberID`, `householdID`, `first_name`, `last_name`, `middle_name`, `relationship_to_head`, `gender`, `birthdate`, `occupation`, `education_level`, `income`, `is_head_of_household`) 
-            VALUES (NULL,'$householdId','$firstName','$lastName','$middleName','$relationshipToHead','$gender','$birthdate','$occupation','$educationLevel','$income','$isHeadOfHousehold')";
+            $sqlFamilyMember = "INSERT INTO `family_member`(`memberID`, `householdID`, `first_name`, `last_name`, `middle_name`, `relationship_to_head`, `gender`, `birthdate`, `occupation`, `education_level`, `income`, `is_head_of_household`, `date_Inserted`) 
+            VALUES (NULL,'$householdId','$firstName','$lastName','$middleName','$relationshipToHead','$gender','$birthdate','$occupation','$educationLevel','$income','$isHeadOfHousehold', '$currentDateTime')";
 
             if ($conn->query($sqlFamilyMember)) {
                 // Retrieve the ID of the newly inserted record

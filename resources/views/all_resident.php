@@ -30,11 +30,41 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
-						<div class="card  card-box">
-							<div class="card-head">
+						<div class="card card-box d-flex">
+							<div class="card-head py-2">
 								<header>Resident's List</header>
+								<div class="">
+									<div class="btn-group">
+										<button
+											class="btn deepPink-bgcolor btn-circle btn-outline dropdown-toggle"
+											data-bs-toggle="dropdown">
+											Tools
+											<i class="fa fa-angle-down"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-end">
+											<li>
+												<a href="javascript:;">
+													<i class="fa fa-print"></i> Print
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<i class="fa fa-file-pdf-o"></i> Save as PDF
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<i class="fa fa-file-excel-o"></i> Export to Excel
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
+
+
 							<div class="card-body ">
+
 								<div class="table-wrap">
 									<div class="table-responsive">
 										<table class="table display product-overview mb-30" id="support_table">
@@ -116,14 +146,14 @@
 	</div>
 	<div class="modal-container" id="modal-container">
 
-        <?php 
+		<?php
 		echo viewResidentModal::create();
 		echo EditResidentModal::create();
 		echo successModal::create("Execution Completed!", './all_resident.php');
 		echo failedModal::create('Failed to execute the data adjustment, Please try again!', './all_resident.php');
-		echo confirmationModal::create('Are you Sure you want to delete this resident ?', './all_household.php') ;
+		echo confirmationModal::create('Are you Sure you want to delete this resident ?', './all_household.php');
 		?>
-    </div>
+	</div>
 
 </div>
 
