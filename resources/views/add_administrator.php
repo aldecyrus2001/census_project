@@ -96,7 +96,7 @@
     <div class="modal-container" id="modal-container">
         
         <?php echo successModal::create('Successfully Inserted Data', './all_administrator.php') ?>
-        <?php echo failedModal::create() ?>
+        <?php echo failedModal::create('Failed to insert Data', './all_administrator.php') ?>
     </div>
 
 
